@@ -183,6 +183,7 @@ class BaseTrainer:
             finally:
                 ddp_cleanup(self, str(file))
         else:
+            print("RETURNING FROM TRAINER.TRAIN()")
             self._do_train(RANK, world_size)
 
     def _setup_ddp(self, rank, world_size):
