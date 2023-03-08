@@ -124,8 +124,8 @@ class Loss:
         self.device = device
 
         self.use_dfl = m.reg_max > 1
-        roll_out_thr = h.min_memory if h.min_memory > 1 else 64 if h.min_memory else 0  # 64 is default
-
+        # roll_out_thr = h.min_memory if h.min_memory > 1 else 64 if h.min_memory else 0  # 64 is default
+        roll_out_thr = 64
         self.assigner = TaskAlignedAssigner(topk=10,
                                             num_classes=self.nc,
                                             alpha=0.5,
