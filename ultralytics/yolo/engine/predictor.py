@@ -111,7 +111,11 @@ class BasePredictor:
         if stream:
             return self.stream_inference(source, model)
         else:
-            return list(self.stream_inference(source, model))  # merge list of Result into one
+            return self.stream_inference(source, model)
+            # result = list(res[0])
+            # preds = res[1]
+            # return result, preds
+            # return list(self.stream_inference(source, model))  # merge list of Result into one
 
     def predict_cli(self, source=None, model=None):
         # Method used for CLI prediction. It uses always generator as outputs as not required by CLI mode
@@ -198,7 +202,8 @@ class BasePredictor:
                 if self.args.save:
                     self.save_preds(vid_cap, i, str(self.save_dir / p.name))
             self.run_callbacks('on_predict_batch_end')
-            yield from self.results
+
+            yield from (list(self.results), preds)
 
             # Print time (inference-only)
             if self.args.verbose:
